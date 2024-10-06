@@ -4,6 +4,7 @@
   "main": "bin/typescript/app.js",
   "type": "module",
   "scripts": {
+    "postinstall": "python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt",
     "prebuild": "rm -fr bin",
     "build": "tsc",
     "postbuild": "npm run copy",
@@ -11,14 +12,15 @@
     "copyCredentials": "cp ./src/typescript/auth/credentials.json ./bin/typescript/auth/credentials.json",
     "copyPublic": "cp -r ./src/public ./bin/",
     "copyPython": "cp -r ./src/python ./bin/",
-    "start": "node . & python bin/python/app.py"
+    "start": "node . & .venv/bin/python bin/python/app.py",
+    "prepareKey": "echo '{\n  \"api_key\": \"\"\n}' > src/typescript/auth/credentials.json && echo 'Open \"src/typescript/auth/credentials.json\" and provide your Youtube API key.'"
   },
   "keywords": [
     "ReVA"
   ],
   "author": "Fedyna K",
   "license": "ISC",
-  "description": "Média Sociaux et Big Data",
+  "description": "Social Media and Big Data",
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^4.21.0",
