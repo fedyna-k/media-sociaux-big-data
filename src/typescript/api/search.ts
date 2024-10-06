@@ -5,13 +5,11 @@ import logger from "../asset/logger.js";
 const youtube = google.youtube("v3");
 
 export namespace Search {
-  const maxResults: number = 10;
-
-  export async function videos(query: string) {
-    const response = await getVideos(query);
+  export async function videos(query: string, maxResults: number = 10) {
+    const response = await getVideos(query, maxResults);
     const videos = response.data.items;
     const videoIds = videos.map(video => video.id.videoId);
-    const rawStats = await getVideosStatistics(videoIds);
+    const rawStats = await getVideosStatistics(videoIds, maxResults);
     
     logger.info({
       message: `Successfully requested videos for query: "${query}"`,
@@ -21,7 +19,7 @@ export namespace Search {
     return rawStats.data.items;
   }
 
-  async function getVideos(query: string) {
+  async function getVideos(query: string, maxResults: number) {
     return await youtube.search.list({
       key: Auth.getAPIKey(),
       q: query,
@@ -32,7 +30,7 @@ export namespace Search {
     });
   }
 
-  async function getVideosStatistics(ids: string[]) {
+  async function getVideosStatistics(ids: string[], maxResults: number) {
     return await youtube.videos.list({
       key: Auth.getAPIKey(),
       id: ids,

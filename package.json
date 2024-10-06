@@ -1,11 +1,17 @@
 {
   "name": "msbd",
   "version": "1.0.0",
-  "main": "bin/app.js",
+  "main": "bin/typescript/app.js",
   "type": "module",
   "scripts": {
-    "build": "tsc && cp ./src/auth/credentials.json ./bin/auth/credentials.json && cp -r ./src/public ./bin/",
-    "start": "node ."
+    "prebuild": "rm -fr bin",
+    "build": "tsc",
+    "postbuild": "npm run copy",
+    "copy": "npm run copyCredentials && npm run copyPublic && npm run copyPython",
+    "copyCredentials": "cp ./src/typescript/auth/credentials.json ./bin/typescript/auth/credentials.json",
+    "copyPublic": "cp -r ./src/public ./bin/",
+    "copyPython": "cp -r ./src/python ./bin/",
+    "start": "node . & python bin/python/app.py"
   },
   "keywords": [
     "ReVA"

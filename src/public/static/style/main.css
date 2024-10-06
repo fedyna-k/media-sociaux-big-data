@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+
 * {
   box-sizing: border-box;
+  font-family: Jetbrains Mono, monospace;
 }
 
 html, body {
@@ -17,4 +20,8 @@ body {
 a {
   color: #6432AE;
   text-decoration: none;
+}
+
+#main-content {
+  padding: 1em;
 }

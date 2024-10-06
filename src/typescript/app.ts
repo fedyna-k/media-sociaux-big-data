@@ -3,17 +3,17 @@ import logger from "./asset/logger.js";
 import { VideoRouter } from "./router/video.js";
 
 const app = express();
-const port = 5000;
+const port = 13000;
 
 app.set("view engine", "ejs");
-app.set("views", (import.meta.dirname ?? __dirname) + "/public/views")
+app.set("views", (import.meta.dirname ?? __dirname) + "/../public/views")
 
 app.use(express.json());
-app.use("/static", express.static((import.meta.dirname ?? __dirname) + "/public/static"));
+app.use("/static", express.static((import.meta.dirname ?? __dirname) + "/../public/static"));
 app.use("/videos", VideoRouter);
 
 app.get("/", (req, res) => {
-  res.render("index", { title: "yt.ts" });
+  res.render("index", { title: "DataNerd" });
 })
 
 app.listen(port, () => {
