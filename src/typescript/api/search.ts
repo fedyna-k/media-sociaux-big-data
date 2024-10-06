@@ -6,6 +6,10 @@ const youtube = google.youtube("v3");
 
 export namespace Search {
   export async function videos(query: string, maxResults: number = 10) {
+    if (Auth.getAPIKey() == null) {
+      return null;
+    }
+
     const response = await getVideos(query, maxResults);
     const videos = response.data.items;
     const videoIds = videos.map(video => video.id.videoId);

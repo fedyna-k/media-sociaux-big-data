@@ -98,6 +98,19 @@ VideoRouter.get("/:query", async (req, res) => {
   }
   
   const query = await Search.videos(req.params.query, maxResults);
+
+  if (query == null) {
+    logger.error({
+      message: "Returning error, API Key is not defined.",
+      location: "router/video.ts"
+    });
+
+    return res.status(500).send({
+      error: "Internal Server Error",
+      reason: "Server was misconfigured."
+    });
+  }
+
   const parser = new VideoParser(query);
   const json = JSON.parse(parser.parse({ type: "json" }));
 
